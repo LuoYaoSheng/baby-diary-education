@@ -1,27 +1,29 @@
-1. baby-diary-education
+# baby-diary-education
 
-   #### 介绍
-   	一个小而美的小工具，方便宝妈们记录宝宝的吃喝拉撒。
-   	
-   	当前仅支持[微信小程序](https://i2kai.com/SmartBLE)，并配备管理后台。
-   	
-   	当前版本：uni-app 。
-   	
-   	uni-APP 源码地址：[Github](https://github.com/LuoYaoSheng/baby-diary-education) / [Gitee](https://gitee.com/luoyaosheng/baby-diary-education)
-   
+#### 介绍
+```
+一个小而美的小工具，方便宝妈们记录宝宝的吃喝拉撒。
 
-   #### 功能
-   - [x] 母乳亲喂
+当前仅支持[微信小程序](https://i2kai.com/SmartBLE)，并配备管理后台。
 
-   - [x] 奶瓶喂养
+当前版本：uni-app 。
 
-   - [x] 换尿布
+uni-APP 源码地址：[Github](https://github.com/LuoYaoSheng/baby-diary-education) / [Gitee](https://gitee.com/luoyaosheng/baby-diary-education)
+```
 
-   - [x] 吸奶器吸奶
 
-   - [x] 宝宝管理
+#### 功能
+- [x] 母乳亲喂
 
-   - [x] 日志统计
+- [x] 奶瓶喂养
+
+- [x] 换尿布
+
+- [x] 吸奶器吸奶
+
+- [x] 宝宝管理
+
+- [x] 日志统计
 
 
    #### 快速体验
