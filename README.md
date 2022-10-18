@@ -34,6 +34,10 @@ uni-APP 源码地址：[Github](https://github.com/LuoYaoSheng/baby-diary-educat
 
    [资源及项目讲解](https://juejin.cn/post/7084238740402470943)
 
+#### 思维导图
+
+![image-20221018220438823](https://tva1.sinaimg.cn/large/008vxvgGly1h79slmhgqpj30we0hrabw.jpg)
+
    #### UI设计图
 
    ![UI设计图](https://tva1.sinaimg.cn/large/e6c9d24ely1gztb1931goj20yw0og0vg.jpg)
