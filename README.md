@@ -1,37 +1,55 @@
-# baby-diary-education
+1. baby-diary-education
 
-#### 介绍
-宝宝点滴开源版
+   #### 介绍
+   	一个小而美的小工具，方便宝妈们记录宝宝的吃喝拉撒。
+   	
+   	当前仅支持[微信小程序](https://i2kai.com/SmartBLE)，并配备管理后台。
+   	
+   	当前版本：uni-app 。
+   	
+   	uni-APP 源码地址：[Github](https://github.com/LuoYaoSheng/baby-diary-education) / [Gitee](https://gitee.com/luoyaosheng/baby-diary-education)
+   
 
-#### 软件架构
-软件架构说明
+   #### 功能
+   - [x] 母乳亲喂
 
+   - [x] 奶瓶喂养
 
-#### 安装教程
+   - [x] 换尿布
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+   - [x] 吸奶器吸奶
 
-#### 使用说明
+   - [x] 宝宝管理
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+   - [x] 日志统计
 
 
-#### 特技
+   #### 快速体验
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+   ![二维码](https://tva1.sinaimg.cn/large/008vxvgGly1h79p1ncmsnj30by0byq3j.jpg) 
+
+   #### 教程讲解
+
+   [资源及项目讲解](https://juejin.cn/post/7084238740402470943)
+
+   #### UI设计图
+
+   ![UI设计图](https://tva1.sinaimg.cn/large/e6c9d24ely1gztb1931goj20yw0og0vg.jpg)
+
+   ## About
+
+   主网：<https://i2kai.com>
+
+   微博：<https://weibo.com/u/3319790374>
+
+   Email：[1034639560@qq.com](1034639560@qq.com)
+
+   Github：<https://github.com/LuoYaoSheng>  
+
+   码云：<https://gitee.com/luoyaosheng>
+
+   私人微信号：iot-runThings 
+
+   交流QQ群：699916110
+
+   <img src="/Users/lys/Library/Application%20Support/typora-user-images/image-20221018200755239.png" alt="image-20221018200755239" style="zoom:33%;" /> 
