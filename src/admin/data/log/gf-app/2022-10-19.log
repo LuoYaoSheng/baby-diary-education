@@ -1,0 +1,6 @@
+2022-10-19 16:39:34.113 [ERRO] dial tcp [::1]:3306: connect: connection refused, SELECT `JobId`,`JobName`,`JobParams`,`JobGroup`,`InvokeTarget`,`CronExpression`,`MisfirePolicy`,`Concurrent`,`Status`,`CreateBy`,`UpdateBy`,`Remark`,`CreatedAt`,`UpdatedAt`,`DeletedAt` FROM `sys_job` WHERE `status`=0
+Stack:
+1.  gfast/task.init.0
+    /Users/lys/Desktop/prj/maker/baby-diary-education/src/admin/task/bind_function.go:33
+ 
+2022-10-19 16:39:34 [INFO] /Volumes/TOSHIBA/Application Support/Go/pkg/mod/github.com/tiger1103/gtoken@v1.4.8/gtoken/gtoken_group.go:17: [GToken][params:{"AuthExcludePaths":"[\"/login\"]","AuthFailMsg":"登录超时，请重新登录","AuthPaths":"","CacheKey":"GToken:","CacheMode":2,"EncryptKey":"koi29a83idakguqjq29asd9asd8a7jhq","LoginPath":"/login","LogoutPath":"/logout","MiddlewareType":1,"MultiLogin":true,"Timeout":10800000,"TokenDelimiter":"_"}]start...  

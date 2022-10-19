@@ -52,30 +52,94 @@ $ git clone https://github.com/LuoYaoSheng/baby-diary-education
 
 ##### 配置说明
 
+导入数据库
+
+```
+将 src/admin/data/babypdiary.sql 导入到数据库中
+```
+
+修改后端配置 
+
+```
+编辑 scr/admin/config.toml 文件
+
+...
+[database]
+    link  = "mysql:root:root@tcp(localhost:3306)/baby-diary" // mysql对应信息
+...
+# Redis数据库配置
+[redis]
+    open = true #是否开启 redis 缓存 若不开启使用gchache缓存方式
+    default = "redis:16379,9,123456?idleTimeout=20&maxActive=100" // redis对应信息
+...
+# 微信小程序
+[wx-miniprogram]
+    appid = ""
+    secret = ""  
+    tmplId = ""  // 订阅ID
+```
+
+修改小程序配置
+
 ```shell
-小程序配置
-    修改appid
-    修改服务器地址
-数据库配置
-    将xxx导入数据
-    修改config，xxx
-前端配置
-    修改服务器地址
+1.编辑 src/uni/common/tool.js 文件
+
+...
+// 获取api本地参数
+function apiOptions() {
+	let options = {
+		header: 'http://',
+		host: '127.0.0.1:8200/v1', // 本地地址或自定义地址
+		port: 80,
+		duration: 3000
+	}
+	return options
+}
+...
+
+2.编辑 src/uni/manifest.json 文件
+
+基础配置 > 修改 uni-app应用标识（AppID）
+微信小程序 > 修改 微信小程序AppID
+```
+
+修改前端配置
+
+```shell
+编辑 src/web/.env.development 文件
+
+# 开发环境配置
+ENV = 'development'
+port = 9002
+# gfast管理系统/开发环境
+VUE_APP_BASE_API = 'http://localhost:8200'
+
+# 路由懒加载
+VUE_CLI_BABEL_TRANSPILE_MODULES = true
 ```
 
 ##### 启动项目
 
+启动后端
+
 ```shell
-前端：
-    cd src/web     // 进入前端目录
-    npm install    // 安装依赖
-    npm run dev    // 开发模式启动项目
-后端：
-    cd src/admin   // 进入后端目录
-		go mod tidy    // 安装依赖
-		go run main    // 启动项目 
-小程序：
-		使用 HBuilderX 打开 src/uni，并通过启动微信开发者工具进行运行查看
+cd src/admin   // 进入后端目录
+go mod tidy    // 安装依赖
+go run main    // 启动项目
+```
+
+启动前端
+
+```shell
+cd src/web     // 进入前端目录
+npm install    // 安装依赖
+npm run dev    // 开发模式启动项目
+```
+
+启动微信小程序
+
+```shell
+使用 HBuilderX 打开 src/uni，并通过启动微信开发者工具进行运行查看
 ```
 
    #### 交互图

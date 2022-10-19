@@ -1,0 +1,35 @@
+// ==========================================================================
+// GFast自动生成model代码，无需手动修改，重新生成会自动覆盖.
+// 生成日期：{{.table.CreateTime}}
+// 生成路径: {{.table.PackageName}}/model/{{.table.TableName}}.go
+// 生成人：{{.table.FunctionAuthor}}
+// ==========================================================================
+////
+package model
+
+import (
+    {{if .table.HasTimeColumn}}
+    "github.com/gogf/gf/os/gtime"
+    {{end}}
+	"github.com/gogf/gf/util/gmeta"
+)
+
+// {{.table.ClassName}} is the golang structure for table {{.table.TableName}}.
+type {{.table.ClassName}} struct {
+	     gmeta.Meta   `orm:"table:{{.table.TableName}}"`
+	{{range $index, $column := .table.Columns}}
+        {{if $column.IsPk}} {{$column.GoField}}       {{if eq $column.GoType "Time"}}*gtime.Time{{else}}{{$column.GoType}}{{end}}         `orm:"{{$column.ColumnName}},primary" json:"{{$column.HtmlField}}"`    // {{$column.ColumnComment}} {{else}} {{$column.GoField}}    {{if eq $column.GoType "Time"}}*gtime.Time{{else}}{{$column.GoType}}{{end}}         `orm:"{{$column.ColumnName}}" json:"{{$column.HtmlField}}"`    // {{$column.ColumnComment}} {{end}}
+    {{end}}
+    {{range $ti, $linkedTable := .table.LinkedTables}}
+         Linked{{$.table.ClassName}}{{$linkedTable.ClassName}}  *Linked{{$.table.ClassName}}{{$linkedTable.ClassName}}  `{{$linkedTable.OrmWithMapping}} json:"linked{{$.table.ClassName}}{{$linkedTable.ClassName}}"`
+    {{end}}
+}
+
+{{range $ti, $linkedTable := .table.LinkedTables}}
+type Linked{{$.table.ClassName}}{{$linkedTable.ClassName}} struct {
+	    gmeta.Meta   `orm:"table:{{$linkedTable.TableName}}"`
+	{{range $ci, $linkedColumn := $linkedTable.RefColumns.Values}}
+	    {{$linkedColumn.GoField}}    {{if eq $linkedColumn.GoType "Time"}}*gtime.Time{{else}}{{$linkedColumn.GoType}}{{end}}         `orm:"{{$linkedColumn.ColumnName}}" json:"{{$linkedColumn.HtmlField}}"`    // {{$linkedColumn.ColumnComment}}
+	{{end}}
+}
+{{end}}

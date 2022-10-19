@@ -1,0 +1,294 @@
+// ==========================================================================
+// GFast自动生成业务逻辑层相关代码，只生成一次，按需修改,再次生成不会覆盖.
+// 生成日期：{{.table.CreateTime}}
+// 生成路径: {{.table.PackageName}}/service/{{.table.BusinessName}}.go
+// 生成人：{{.table.FunctionAuthor}}
+// ==========================================================================
+////
+{{$structName := .table.BusinessName | CaseCamelLower}}
+
+package service
+
+{{$gjson:=false}}
+{{range $index, $column := .table.Columns}}
+{{if eq $column.HtmlType "images" "file" "files"}}
+{{$gjson = true}}
+{{end}}
+{{end}}
+
+import (
+    "context"
+	comModel "gfast/app/common/model"
+	"{{.table.PackageName}}/dao"
+	"{{.table.PackageName}}/model"
+	{{if or .table.HasConversion (eq .table.TplCategory "tree")}}
+	"github.com/gogf/gf/util/gconv"
+	{{end}}
+	{{if eq .table.TplCategory "tree"}}
+	"gfast/library"
+    {{end}}
+	{{if $gjson}}
+	"github.com/gogf/gf/encoding/gjson"
+	{{end}}
+	"github.com/gogf/gf/errors/gerror"
+	"github.com/gogf/gf/frame/g"
+)
+
+
+type {{$structName}} struct {
+}
+
+var {{.table.ClassName}} = new({{$structName}})
+
+
+{{$pk:=""}}
+{{$pkGoField:=""}}
+
+{{$createdAt:=""}}
+{{$createdAtGoField:=""}}
+
+{{range $index, $column := .table.Columns}}
+{{if $column.IsPk}}
+    {{$pk = $column.ColumnName}}
+    {{$pkGoField = $column.GoField}}
+{{end}}
+{{if eq $column.ColumnName "created_at"}}
+    {{$createdAt = $column.ColumnName}}
+    {{$createdAtGoField = $column.GoField}}
+{{end}}
+{{end}}
+
+// GetList 获取列表
+func (s *{{$structName}}) GetList(req *dao.{{.table.ClassName}}SearchReq) (total, page int, list []*dao.{{.table.ClassName}}ListRes, err error) {
+    m := dao.{{.table.ClassName}}.Ctx(req.Ctx).WithAll()
+  {{range $index, $column := .table.QueryColumns}}
+    {{if eq $column.QueryType "LIKE"}}
+    if req.{{$column.GoField}} != "" {
+        m = m.Where(dao.{{$.table.ClassName}}.Columns.{{$column.GoField}}+" like ?", "%"+req.{{$column.GoField}}+"%")
+    }
+    {{else if eq $column.QueryType "EQ"}}
+      {{if eq $column.GoType "string"}}
+    if req.{{$column.GoField}} != "" {
+        m = m.Where(dao.{{$.table.ClassName}}.Columns.{{$column.GoField}}+" = ?", {{if ne $column.FieldConversion ""}}{{$column.FieldConversion}}({{end}}req.{{$column.GoField}}{{if ne $column.FieldConversion ""}}){{end}})
+    }
+      {{else if eq $column.GoType "Time"}}
+        {{if eq $column.ColumnName "created_at"}}
+    if req.BeginTime != "" {
+        m = m.Where(dao.{{$.table.ClassName}}.Columns.{{$column.GoField}}+" >=", req.BeginTime)
+    }
+    if req.EndTime != "" {
+        m = m.Where(dao.{{$.table.ClassName}}.Columns.{{$column.GoField}}+" <", req.EndTime)
+    }
+        {{else}}
+    if req.{{$column.GoField}} != "" {
+        m = m.Where(dao.{{$.table.ClassName}}.Columns.{{$column.GoField}}+" = ?", {{if ne $column.FieldConversion ""}}{{$column.FieldConversion}}({{end}}req.{{$column.GoField}}{{if ne $column.FieldConversion ""}}){{end}})
+    }
+        {{end}}
+      {{else if or (eq $column.GoType "int") (eq $column.GoType "int64") (eq $column.GoType "uint") (eq $column.GoType "uint64") (eq $column.GoType "bool")}}
+    if req.{{$column.GoField}} != "" {
+        m = m.Where(dao.{{$.table.ClassName}}.Columns.{{$column.GoField}}+" = ?", {{if ne $column.FieldConversion ""}}{{$column.FieldConversion}}({{end}}req.{{$column.GoField}}{{if ne $column.FieldConversion ""}}){{end}})
+    }
+      {{end}}
+    {{else if eq $column.QueryType "BETWEEN" }}
+    if req.{{$column.GoField}} != nil && len(req.{{$column.GoField}}) > 0 {
+      if req.{{$column.GoField}}[0] != "" {
+        m = m.Where(dao.{{$.table.ClassName}}.Columns.{{$column.GoField}}+" >= ?", {{if ne $column.FieldConversion ""}}{{$column.FieldConversion}}({{end}}req.{{$column.GoField}}[0]{{if ne $column.FieldConversion ""}}){{end}})
+      }
+      if len(req.{{$column.GoField}}) > 1 && req.{{$column.GoField}}[1] != "" {
+        m = m.Where(dao.{{$.table.ClassName}}.Columns.{{$column.GoField}}+" < ?", {{if ne $column.FieldConversion ""}}{{$column.FieldConversion}}({{end}}req.{{$column.GoField}}[1]{{if ne $column.FieldConversion ""}}){{end}})
+      }
+    }
+    {{end}}
+  {{end}}
+
+    total, err = m.Count()
+    if err != nil {
+        g.Log().Error(err)
+        err = gerror.New("获取总行数失败")
+        return
+    }
+    {{if ne .table.TplCategory "tree"}}
+    if req.PageNum == 0 {
+        req.PageNum = 1
+    }
+    page = req.PageNum
+    if req.PageSize == 0 {
+        req.PageSize = comModel.PageSize
+    }
+    order:= "{{.table.SortColumn}} {{.table.SortType}}"
+    if req.OrderBy!=""{
+        order = req.OrderBy
+    }
+    var res []*model.{{.table.ClassName}}
+    err = m.Fields(dao.{{.table.ClassName}}ListRes{}).Page(page, req.PageSize).Order(order).Scan(&res)
+    {{else}}
+    order:= "{{.table.SortColumn}} {{.table.SortType}}"
+    if req.OrderBy!=""{
+        order = req.OrderBy
+    }
+    var res []*model.{{.table.ClassName}}
+    err = m.Fields(dao.{{.table.ClassName}}ListRes{}).Order(order).Scan(&res)
+    {{end}}
+	if err != nil {
+		g.Log().Error(err)
+		err = gerror.New("获取数据失败")
+	}
+	list = make([]*dao.{{.table.ClassName}}ListRes,len(res))
+    for k,v:=range res{
+        {{range $index, $column := .table.Columns}}
+        {{if and $column.IsList (eq $column.HtmlType "images" "file" "files")}}
+        {{$column.HtmlField}}:= ([]*comModel.UpFile)(nil)
+        err = gjson.DecodeTo(v.{{$column.GoField}},&{{$column.HtmlField}})
+        if err!=nil{
+            return
+        }
+        {{end}}
+        {{end}}
+        list[k] = &dao.{{.table.ClassName}}ListRes{
+            {{if eq .table.TplCategory "tree"}}
+              {{range $index, $column := .table.Columns}}
+                {{if or (eq $column.HtmlField $.table.TreeCode) (eq $column.HtmlField $.table.TreeParentCode) (eq $column.HtmlField $.table.TreeName) }}
+            {{$column.GoField}} : v.{{$column.GoField}},
+                {{end}}
+              {{end}}
+              {{range $index, $column := .table.Columns}}
+                {{if and $column.IsList (ne $column.HtmlField $.table.TreeCode) (ne $column.HtmlField $.table.TreeParentCode) (ne $column.HtmlField $.table.TreeName) }}
+                  {{if eq $column.HtmlType "images" "file" "files"}}
+            {{$column.GoField}} : {{$column.HtmlField}},
+                  {{else}}
+            {{$column.GoField}} : v.{{$column.GoField}},
+                  {{end}}
+                {{end}}
+              {{end}}
+            {{else}}
+              {{if not .table.IsPkListable}}
+            {{.table.PkColumn.GoField}} : v.{{.table.PkColumn.GoField}},
+              {{end}}
+              {{range $index, $column := .table.ListColumns}}
+                {{if eq $column.HtmlType "images" "file" "files"}}
+            {{$column.GoField}} : {{$column.HtmlField}},
+                {{else}}
+            {{$column.GoField}} : v.{{$column.GoField}},
+                {{end}}
+              {{end}}
+            {{end}}
+            {{range $ti, $linkedTable := .table.LinkedTables}}
+            Linked{{$.table.ClassName}}{{$linkedTable.ClassName}} : v.Linked{{$.table.ClassName}}{{$linkedTable.ClassName}},
+            {{end}}
+        }
+    }
+    return
+}
+
+
+// GetInfoById 通过id获取
+func (s *{{$structName}}) GetInfoById(ctx context.Context,id {{$.table.PkColumn.GoType}}) (info *dao.{{.table.ClassName}}InfoRes, err error) {
+    if id == 0 {
+        err = gerror.New("参数错误")
+        return
+    }
+    var data *model.{{.table.ClassName}}
+    err = dao.{{.table.ClassName}}.Ctx(ctx).WithAll().Where(dao.{{.table.ClassName}}.Columns.{{$pkGoField}}, id).Scan(&data)
+    if err != nil {
+        g.Log().Error(err)
+    }
+    if data == nil || err != nil {
+        err = gerror.New("获取信息失败")
+        return
+    }
+	{{range $index, $column := .table.Columns}}
+    {{if eq $column.HtmlType "images" "file" "files"}}
+    {{$column.HtmlField}}:= ([]*comModel.UpFile)(nil)
+    err = gjson.DecodeTo(data.{{$column.GoField}},&{{$column.HtmlField}})
+    if err!=nil{
+        return
+    }
+    {{end}}
+    {{end}}
+    info = &dao.{{.table.ClassName}}InfoRes{
+        {{range $index, $column := .table.Columns}}
+        {{if eq $column.HtmlType "images" "file" "files"}}
+        {{$column.GoField}} : {{$column.HtmlField}},
+        {{else}}
+        {{$column.GoField}} : data.{{$column.GoField}},
+        {{end}}
+        {{end}}
+        {{range $ti, $linkedTable := .table.LinkedTables}}
+        Linked{{$.table.ClassName}}{{$linkedTable.ClassName}} : data.Linked{{$.table.ClassName}}{{$linkedTable.ClassName}},
+        {{end}}
+    }
+    return
+}
+
+// Add 添加
+func (s *{{$structName}}) Add(ctx context.Context,req *dao.{{.table.ClassName}}AddReq) (err error) {
+	_, err = dao.{{.table.ClassName}}.Ctx(ctx).Insert(req)
+	return
+}
+
+// Edit 修改
+func (s *{{$structName}}) Edit(ctx context.Context,req *dao.{{.table.ClassName}}EditReq) error {
+    {{ $fieldsEx:= concat "dao." $.table.ClassName ".Columns." $pkGoField }}
+    {{if ne $createdAt ""}}
+        {{$fieldsEx = concat "dao." $.table.ClassName ".Columns." $pkGoField  "," "dao." $.table.ClassName ".Columns." $createdAtGoField}}
+    {{end}}
+	_, err := dao.{{.table.ClassName}}.Ctx(ctx).FieldsEx({{$fieldsEx}}).Where(dao.{{.table.ClassName}}.Columns.{{$pkGoField}}, req.{{$pkGoField}}).
+		Update(req)
+	return err
+}
+
+
+// DeleteByIds 删除
+func (s *{{$structName}}) DeleteByIds(ctx context.Context,ids []int) (err error) {
+	if len(ids) == 0 {
+		err = gerror.New("参数错误")
+		return
+	}
+	{{if eq .table.TplCategory "tree"}}
+    ids, err = s.GetChildrenIds(ctx,ids)
+    if err != nil {
+        return
+    }
+	{{end}}
+	_, err = dao.{{.table.ClassName}}.Ctx(ctx).Delete(dao.{{.table.ClassName}}.Columns.{{$pkGoField}}+" in (?)", ids)
+	if err != nil {
+		g.Log().Error(err)
+		err = gerror.New("删除失败")
+	}
+	return
+}
+
+
+{{range $index,$column:= .table.Columns}}
+{{if and $column.IsStatus $column.IsList}}
+// Change{{$column.GoField}} 修改状态
+func (s *{{$structName}}) Change{{$column.GoField}}(ctx context.Context,req *dao.{{$.table.ClassName}}{{$column.GoField}}Req) error {
+	_, err := dao.{{$.table.ClassName}}.Ctx(ctx).WherePri(req.{{$pkGoField}}).Update(g.Map{
+		dao.{{$.table.ClassName}}.Columns.{{$column.GoField}}: req.{{$column.GoField}},
+	})
+	return err
+}
+{{end}}
+{{end}}
+
+{{if eq .table.TplCategory "tree"}}
+// GetChildrenIds 通过ID获取子级ID
+func (s *{{$structName}})GetChildrenIds(ctx context.Context,ids []int) ([]int, error) {
+	//获取所有
+	_,_,all, err := s.GetList(&dao.{{.table.ClassName}}SearchReq{PageReq:comModel.PageReq{Ctx: ctx}})
+	if err != nil {
+		return nil, err
+	}
+	list := make(g.List, len(all))
+	for k, info := range all {
+		list[k] = gconv.Map(info)
+	}
+	for _, id := range ids {
+		children := library.FindSonByParentId(list, id, "{{.table.TreeParentCode}}", "{{.table.TreeCode}}")
+		for _, cid := range children {
+			ids = append(ids, gconv.Int(cid["{{.table.TreeCode}}"]))
+		}
+	}
+	return ids, nil
+}
+{{end}}

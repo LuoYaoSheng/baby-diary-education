@@ -1,0 +1,147 @@
+page {
+	background-color: #F2F2F2;
+}
+
+.top-header {
+	width: 100rpx;
+	height: 100rpx;
+}
+
+.touch-btn {
+	width: 60rpx;
+	height: 60rpx;
+}
+
+.list-item {
+	height: 96rpx;
+}
+
+.list-item-title {
+	width: 180rpx;
+}
+
+.list-item-input {}
+
+.list-item-btn {
+	width: 96rpx;
+	height: 96rpx;
+}
+
+.list-item-host {
+	height: 56rpx;
+	width: 140rpx;
+	border: 1rpx solid #F2F2F2;
+	border-radius: 10rpx;
+}
+
+/* 悬浮按钮 */
+.fab-btn {
+	width: 100rpx;
+	height: 100rpx;
+	background: linear-gradient(243deg, #77C397 0%, #4A8768 100%);
+	box-shadow: 2rpx -4rpx 16rpx 0rpx rgba(183, 239, 207, 1);
+	position: fixed;
+	bottom: 42rpx;
+	right: 42rpx;
+	z-index: 999;
+	border-radius: 100rpx;
+}
+
+.bg-common {
+	background-color: #F2F2F2;
+}
+
+.bg-linear-red {
+	background-image: linear-gradient(135deg, #FE6F7D 10%, #FE687F 100%);
+}
+
+.bg-linear-orange {
+	background-image: linear-gradient(135deg, #FFB888 10%, #F69F60 100%);
+}
+
+.bg-linear-blue {
+	background-image: linear-gradient(135deg, #B5AFE0 10%, #9288BB 100%);
+}
+
+.text-common-red {
+	color: #FE687F;
+}
+
+.bg-common-red {
+	background: #FFE9ED;
+}
+
+.text-common-blue {
+	color: #7DB6D5;
+}
+
+.bg-common-blue {
+	background-color: #E7F2F9;
+}
+
+.text-common-yellow {
+	color: #FFB888;
+}
+
+.bg-common-yellow {
+	background-color: #FFF6E7;
+}
+
+.btn-common {
+	width: 340rpx;
+	height: 80rpx;
+}
+
+.bg-btn-common-un {
+	background: #D4D0D1;
+}
+
+.bg-diaper-yellow {
+	background-color: #F8D700;
+}
+
+.bg-diaper-blackish-green {
+	background-color: #44570F;
+}
+
+.bg-diaper-brown {
+	background-color: #5E451F;
+}
+
+.bg-diaper-green {
+	background-color: #72A616;
+}
+
+.bg-diaper-red {
+	background-color: #B7382D;
+}
+
+.bg-diaper-black {
+	background-color: #3A3333;
+}
+
+.bg-diaper-Off-white {
+	background-color: #CAC3C0;
+}
+
+.textarea-content {
+	height: 300rpx;
+}
+
+.textarea-content2 {
+	width: auto;
+	height: 260rpx;
+	top: 20rpx;
+}
+
+.btn-com {
+	width: auto;
+	height: 80rpx;
+	font-size: 30rpx;
+	box-shadow: 0 4rpx 12rpx #FEE8EA;
+}
+
+.btn-com-select {
+	color: #fff;
+	background-image: linear-gradient(135deg, #FE6F7D 10%, #FE687F 100%);
+}

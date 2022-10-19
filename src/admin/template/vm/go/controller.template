@@ -1,0 +1,178 @@
+// ==========================================================================
+// GFast自动生成控制器相关代码，只生成一次，按需修改,再次生成不会覆盖.
+// 生成日期：{{.table.CreateTime}}
+// 生成路径: {{.table.PackageName}}/api/{{.table.BusinessName}}.go
+// 生成人：{{.table.FunctionAuthor}}
+// ==========================================================================
+////
+{{$structName := .table.BusinessName | CaseCamelLower}}
+
+package api
+
+{{$hasGStr:=false}}
+{{$libTag:=false}}
+{{range $index,$column:=.table.Columns}}
+{{if eq $column.HtmlType "checkbox"}}
+{{$hasGStr = true}}
+{{else if eq $column.HtmlType "images" "file" "files"}}
+{{$libTag = true}}
+{{$libTag = true}}
+{{end}}
+{{end}}
+
+import (
+    {{if ne $.table.ModuleName "system"}}
+    sysApi "gfast/app/system/api"
+    {{end}}
+    {{if $libTag}}
+    "gfast/library"
+    {{end}}
+    "{{.table.PackageName}}/dao"
+    "{{.table.PackageName}}/service"
+    "github.com/gogf/gf/frame/g"
+    "github.com/gogf/gf/net/ghttp"
+    "github.com/gogf/gf/util/gvalid"
+    {{if $hasGStr}}
+    "github.com/gogf/gf/text/gstr"
+    {{end}}
+)
+
+type {{$structName}} struct {
+    {{if ne $.table.ModuleName "system"}}
+    sysApi.SystemBase
+    {{else}}
+    SystemBase
+    {{end}}
+}
+
+var {{.table.ClassName}} = new({{$structName}})
+
+// List 列表
+func (c *{{$structName}}) List(r *ghttp.Request) {
+	var req *dao.{{.table.ClassName}}SearchReq
+	//获取参数
+	if err := r.Parse(&req); err != nil {
+		c.FailJsonExit(r, err.(gvalid.Error).FirstString())
+	}
+	req.Ctx = r.GetCtx()
+	total, page, list, err := service.{{.table.ClassName}}.GetList(req)
+	if err != nil {
+		c.FailJsonExit(r, err.Error())
+	}
+	result := g.Map{
+		"currentPage": page,
+		"total":       total,
+		"list":        list,
+	}
+	c.SusJsonExit(r, result)
+}
+
+// Add 添加
+func (c *{{$structName}}) Add(r *ghttp.Request) {
+    var req *dao.{{.table.ClassName}}AddReq
+    //获取参数
+    err := r.Parse(&req)
+    if err != nil {
+       c.FailJsonExit(r, err.(gvalid.Error).FirstString())
+    }
+    {{if .table.HasCreatedBy}}
+    req.CreatedBy = c.GetCurrentUser(r.GetCtx()).GetUserId()
+    {{end}}
+    {{range $index,$column:= .table.EditColumns}}
+    {{if eq $column.HtmlType "checkbox"}}
+    {{$column.HtmlField}} := r.GetStrings("{{$column.HtmlField}}")
+    if len({{$column.HtmlField}})>0{
+       req.{{$column.GoField}} = gstr.Join({{$column.HtmlField}},",")
+    }else{
+       req.{{$column.GoField}} = ""
+    }
+    {{else if eq $column.HtmlType "images" "file" "files"}}
+    for _,obj:=range req.{{$column.GoField}}{
+        obj.Url,err = library.GetFilesPath(obj.Url)
+        if err!=nil{
+            c.FailJsonExit(r, err.Error())
+        }
+    }
+    {{end}}
+    {{end}}
+    err = service.{{.table.ClassName}}.Add(r.GetCtx(),req)
+    if err != nil {
+        c.FailJsonExit(r, err.Error())
+    }
+    c.SusJsonExit(r, "添加成功")
+}
+
+
+// Get 获取
+func (c *{{$structName}}) Get(r *ghttp.Request) {
+	id := r.Get{{$.table.PkColumn.GoType | CaseCamel}}("id")
+	info, err := service.{{.table.ClassName}}.GetInfoById(r.GetCtx(),id)
+	if err != nil {
+		c.FailJsonExit(r, err.Error())
+	}
+	c.SusJsonExit(r, info)
+}
+
+// Edit 修改
+func (c *{{$structName}}) Edit(r *ghttp.Request) {
+    var req *dao.{{.table.ClassName}}EditReq
+    //获取参数
+    err := r.Parse(&req)
+    if err != nil {
+        c.FailJsonExit(r, err.(gvalid.Error).FirstString())
+    }
+    {{if .table.HasUpdatedBy}}
+    req.UpdatedBy = c.GetCurrentUser(r.GetCtx()).GetUserId() //获取登陆用户id
+    {{end}}
+    {{range $index,$column:= .table.EditColumns}}
+    {{if eq $column.HtmlType "checkbox"}}
+    {{$column.HtmlField}} := r.GetStrings("{{$column.HtmlField}}")
+    if len({{$column.HtmlField}})>0{
+       req.{{$column.GoField}} = gstr.Join({{$column.HtmlField}},",")
+    }else{
+       req.{{$column.GoField}} = ""
+    }
+    {{else if eq $column.HtmlType "images" "file" "files"}}
+    for _,obj:=range req.{{$column.GoField}}{
+        obj.Url,err = library.GetFilesPath(obj.Url)
+        if err!=nil{
+            c.FailJsonExit(r, err.Error())
+        }
+    }
+    {{end}}
+    {{end}}
+    err = service.{{.table.ClassName}}.Edit(r.GetCtx(),req)
+    if err != nil {
+        c.FailJsonExit(r, err.Error())
+    }
+    c.SusJsonExit(r, "修改成功")
+}
+
+
+// Delete 删除
+func (c *{{$structName}}) Delete(r *ghttp.Request) {
+	ids := r.GetInts("ids")
+	err := service.{{.table.ClassName}}.DeleteByIds(r.GetCtx(),ids)
+	if err != nil {
+		c.FailJsonExit(r, err.Error())
+	}
+	c.SusJsonExit(r, "删除成功")
+}
+
+{{range $index,$column:= .table.Columns}}
+{{if and $column.IsStatus $column.IsList}}
+// Change{{$column.GoField}} 修改状态
+func (c *{{$structName}}) Change{{$column.GoField}}(r *ghttp.Request){
+	   var req *dao.{{$.table.ClassName}}{{$column.GoField}}Req
+	   //获取参数
+	   if err := r.Parse(&req); err != nil {
+	       c.FailJsonExit(r, err.(gvalid.Error).FirstString())
+	   }
+	   if err := service.{{$.table.ClassName}}.Change{{$column.GoField}}(r.GetCtx(),req); err != nil {
+	       c.FailJsonExit(r, err.Error())
+	   } else {
+	       c.SusJsonExit(r, "状态设置成功")
+	   }
+}
+{{end}}
+{{end}}
