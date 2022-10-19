@@ -10,7 +10,7 @@
 
 #### 项目说明
 
-- 基于全新GF(Go Frame)的后台管理系统
+- 基于Gfast2.0开发的后台管理系统
 - 前端采用ruoyi-ui 、Vue、Element UI
 - 小程序使用 uni-app 
 
