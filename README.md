@@ -26,21 +26,19 @@
 
 - [x] 日志统计
 
+
+
    #### 快速体验
 
    ![二维码](https://tva1.sinaimg.cn/large/008vxvgGly1h79p1ncmsnj30by0byq3j.jpg) 
 
-   #### 教程讲解
+   #### 交互图
 
-   [资源及项目讲解](https://juejin.cn/post/7084238740402470943)
+![交互图](https://tva1.sinaimg.cn/large/008vxvgGly1h7ajsu7onej31ew0r2gpt.jpg)
 
 #### 思维导图
 
 ![image-20221018220438823](https://tva1.sinaimg.cn/large/008vxvgGly1h79slmhgqpj30we0hrabw.jpg)
-
-   #### UI设计图
-
-   ![UI设计图](https://tva1.sinaimg.cn/large/e6c9d24ely1gztb1931goj20yw0og0vg.jpg)
 
    ## About
 
