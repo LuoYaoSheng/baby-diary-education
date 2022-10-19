@@ -42,12 +42,12 @@ $ git clone https://github.com/LuoYaoSheng/baby-diary-education
 
 ```shell
 - doc 
-	- 宝宝点滴.mp         // 原型图，使用 Mockplus 查看
+	- 宝宝点滴.mp        // 原型图，使用 Mockplus 查看
 	- baby-diary.xmind  // 思维导图，使用 xmind 查看
 - src
-	- uni								// 小程序源码，使用 HBuilderX 查看
-	- web								// 简易管理后台UI，使用 WebStorm 查看
-	- admin							// 简易管理后台UI，使用 GoLand 查看
+	- uni               // 小程序源码，使用 HBuilderX 查看
+	- web               // 简易管理后台UI，使用 WebStorm 查看
+	- admin             // 简易管理后台，使用 GoLand 查看
 ```
 
 ##### 配置说明
@@ -71,7 +71,7 @@ $ git clone https://github.com/LuoYaoSheng/baby-diary-education
     npm install    // 安装依赖
     npm run dev    // 开发模式启动项目
 后端：
-		cd src/admin   // 进入后端目录
+    cd src/admin   // 进入后端目录
 		go mod tidy    // 安装依赖
 		go run main    // 启动项目 
 小程序：
