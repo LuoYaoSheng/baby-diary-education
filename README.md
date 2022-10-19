@@ -11,7 +11,6 @@
 #### 项目说明
 
 - 基于Gfast2.0开发的后台管理系统
-- 前端采用ruoyi-ui 、Vue、Element UI
 - 小程序使用 uni-app 
 
 #### 效果预览
@@ -173,3 +172,11 @@ npm run dev    // 开发模式启动项目
    交流QQ群：699916110
 
    <img src="https://tva1.sinaimg.cn/large/008vxvgGly1h7ajvw96jwj30u01hddjq.jpg" alt="image-20221019135038420" style="zoom:33%;" /> 
+
+## 感谢(排名不分先后)
+
+> gf框架 [https://github.com/gogf/gf](https://gitee.com/link?target=https%3A%2F%2Fgithub.com%2Fgogf%2Fgf)
+>
+> gfast框架 https://gitee.com/tiger1103/gfast/tree/os-v2/
+>
+> uni框架 https://uniapp.dcloud.net.cn/
