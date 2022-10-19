@@ -10,8 +10,10 @@
 
 源码地址：[Github](https://github.com/LuoYaoSheng/baby-diary-education) | [Gitee](https://gitee.com/luoyaosheng/baby-diary-education)
 
+#### ![tutieshi_220x480_49s](https://tva1.sinaimg.cn/large/008vxvgGly1h7acceurhlg30640dc4qq.gif)
 
 #### 功能
+
 - [x] 母乳亲喂
 
 - [x] 奶瓶喂养
@@ -23,7 +25,6 @@
 - [x] 宝宝管理
 
 - [x] 日志统计
-
 
    #### 快速体验
 
