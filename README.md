@@ -26,8 +26,6 @@
 
 - [x] 日志统计
 
-
-
    #### 快速体验
 
    ![二维码](https://tva1.sinaimg.cn/large/008vxvgGly1h79p1ncmsnj30by0byq3j.jpg) 
@@ -56,4 +54,4 @@
 
    交流QQ群：699916110
 
-   <img src="/Users/lys/Library/Application%20Support/typora-user-images/image-20221018200755239.png" alt="image-20221018200755239" style="zoom:33%;" /> 
+   <img src="https://tva1.sinaimg.cn/large/008vxvgGly1h7ajvw96jwj30u01hddjq.jpg" alt="image-20221019135038420" style="zoom:33%;" /> 
