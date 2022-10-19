@@ -6,9 +6,15 @@
 
 当前仅支持[微信小程序](https://i2kai.com/SmartBLE)，并配备管理后台。
 
-当前版本：uni-app + go-api + vue-web。
-
 源码地址：[Github](https://github.com/LuoYaoSheng/baby-diary-education) | [Gitee](https://gitee.com/luoyaosheng/baby-diary-education)
+
+#### 项目说明
+
+- 基于全新GF(Go Frame)的后台管理系统
+- 前端采用ruoyi-ui 、Vue、Element UI
+- 小程序使用 uni-app 
+
+#### 效果预览
 
 #### ![tutieshi_220x480_49s](https://tva1.sinaimg.cn/large/008vxvgGly1h7acceurhlg30640dc4qq.gif)
 
